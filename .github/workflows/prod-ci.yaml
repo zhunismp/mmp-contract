@@ -22,6 +22,6 @@ jobs:
 
       - name: Generating protos
         run: |
-          protoc -I=/contracts/proto \ 
-          --go_out=/build/go \ 
-          $(find /contracts/proto -type f -name '*.proto')
+          protoc -I=./contracts/proto \ 
+          --go_out=./build/go \ 
+          $(find ./contracts/proto -type f -name '*.proto')
