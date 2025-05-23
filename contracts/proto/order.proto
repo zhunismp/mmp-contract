@@ -1,6 +1,8 @@
 syntax = "proto3";
 
 option go_package = "github.com/zhunismp/orderpb;orderpb";
+option java_multiple_files = true;
+option java_package = "com.zhunismp.orderpb";
 
 message Order {
     string order_id = 1;
