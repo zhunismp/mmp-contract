@@ -101,7 +101,6 @@ jobs:
           mv com src/main/java
 
       - name: Create pom.xml
-        working-directory: src/main/java/com/zhunismp/orderpb
         run: |
           cat > pom.xml <<EOF
           <project xmlns="http://maven.apache.org/POM/4.0.0"
@@ -124,7 +123,7 @@ jobs:
             </distributionManagement>
           </project>
           EOF
-          
+
       - name: Tree
         run: tree .
 
