@@ -85,7 +85,6 @@ jobs:
         with:
           name: java-client
 
-      # Example: package and publish to GitHub Packages using Maven
       - name: Setup Java for publishing
         uses: actions/setup-java@v3
         with:
@@ -97,7 +96,8 @@ jobs:
 
       - name: Create pom.xml
         run: |
-          cat > build/java/pom.xml <<EOF
+          touch build/java/pom.xml
+          build/java/pom.xml <<EOF
           <project xmlns="http://maven.apache.org/POM/4.0.0"
                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
