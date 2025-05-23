@@ -93,7 +93,7 @@ jobs:
           java-version: '17'
           server-id: github
           server-username: ${{ github.actor }}
-          server-password: ${{ secrets.PUBLISHER_TOKEN }}
+          server-password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Create directory structure
         run: |
@@ -137,7 +137,7 @@ jobs:
 
       - name: Publish to GitHub Packages
         run: |
-          mvn clean install compile
+          mvn clean install
           mvn deploy -DskipTests -e -X
 
         
