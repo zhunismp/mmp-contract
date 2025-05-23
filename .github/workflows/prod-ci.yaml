@@ -122,7 +122,7 @@ jobs:
       - name: Publish to GitHub Packages
         working-directory: com/zhunismp/orderpb
         run: |
-          mvn deploy -DskipTests
+          mvn deploy -DskipTests -e -X
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
