@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-option go_package = "github.com/zhunismp/orderpb;orderpb";
+// option go_package = "github.com/zhunismp/orderpb;orderpb";
 
 message Order {
     string order_id = 1;
