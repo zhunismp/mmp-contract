@@ -99,7 +99,7 @@ jobs:
 
       - name: Create pom.xml
         run: |
-          cat > pom.xml <<EOF
+          cat > com/zhunismp/orderpb/pom.xml <<EOF
           <project xmlns="http://maven.apache.org/POM/4.0.0"
                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
@@ -113,7 +113,7 @@ jobs:
           EOF
 
       - name: Publish to GitHub Packages
-        working-directory: build/java
+        working-directory: com/zhunismp/orderpb
         run: |
           mvn deploy -DskipTests
         
