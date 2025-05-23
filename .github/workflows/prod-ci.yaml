@@ -93,11 +93,13 @@ jobs:
           server-id: github
           server-username: ${{ github.actor }}
           server-password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Verify /build/java directory
+        run: |
+          ls -la build/java
 
       - name: Create pom.xml
         run: |
-          touch build/java/pom.xml
-          build/java/pom.xml <<EOF
+          cat > build/java/pom.xml <<EOF
           <project xmlns="http://maven.apache.org/POM/4.0.0"
                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
