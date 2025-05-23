@@ -95,9 +95,15 @@ jobs:
           server-username: ${{ github.actor }}
           server-password: ${{ secrets.PUBLISHER_TOKEN }}
 
-      - name: Create pom.xml
+      - name: Create directory structure
         run: |
-          cat > com/zhunismp/orderpb/pom.xml <<EOF
+          mkdir -p src/main/java
+          mv com src/main/java
+
+      - name: Create pom.xml
+        working-directory: src/main/java/com/zhunismp/orderpb
+        run: |
+          cat > pom.xml <<EOF
           <project xmlns="http://maven.apache.org/POM/4.0.0"
           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
           xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
@@ -123,7 +129,5 @@ jobs:
         working-directory: com/zhunismp/orderpb
         run: |
           mvn deploy -DskipTests -e -X
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
         
