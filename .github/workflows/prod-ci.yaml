@@ -126,7 +126,7 @@ jobs:
           EOF
 
       - name: Publish to GitHub Packages
-        working-directory: com/zhunismp/orderpb
+        working-directory: src/main/java/com/zhunismp/orderpb
         run: |
           mvn deploy -DskipTests -e -X
 
