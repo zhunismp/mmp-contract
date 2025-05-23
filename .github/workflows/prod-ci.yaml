@@ -122,5 +122,5 @@ jobs:
       - name: Publish to GitHub Packages
         working-directory: com/zhunismp/orderpb
         run: |
-          mvn deploy -DskipTests -X
+          mvn deploy -DskipTests
         
