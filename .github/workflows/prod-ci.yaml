@@ -93,7 +93,7 @@ jobs:
           java-version: '17'
           server-id: github
           server-username: ${{ github.actor }}
-          server-password: ${{ secrets.GITHUB_TOKEN }}
+          server-password: ${{ secrets.ADMIN_TOKEN }}
 
       - name: Create pom.xml
         run: |
