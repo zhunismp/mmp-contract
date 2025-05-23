@@ -22,6 +22,7 @@ jobs:
 
       - name: Generating protos
         run: |
+          mkdir -p $GEN_OUT_DIR
           protoc -I=$PROTO_DIR \ 
           --go_out=$GEN_OUT_DIR \ 
           $(find $PROTO_DIR -type f -name '*.proto')          
