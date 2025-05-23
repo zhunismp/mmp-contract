@@ -22,4 +22,4 @@ jobs:
           echo "$HOME/go/bin" >> $GITHUB_PATH
 
       - name: Generating protos
-        run: protoc -I=./contracts/proto --go_out=./build/go $(find ./contracts/proto -type f -name '*.proto')
+        run: protoc -I=/contracts/proto --go_out=/build/go $(find /contracts/proto -type f -name '*.proto')
