@@ -62,21 +62,13 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Install protoc-gen-grpc-java plugin
-        run: |
-          # Download the protoc-gen-grpc-java plugin
-          curl -L -o protoc-gen-grpc-java.zip https://repo1.maven.org/maven2/io/grpc/protoc-gen-grpc-java/1.56.0/protoc-gen-grpc-java-1.56.0-linux-x86_64.exe.zip
-          unzip protoc-gen-grpc-java.zip -d ./bin
-          chmod +x ./bin/protoc-gen-grpc-java
-          echo "$PWD/bin" >> $GITHUB_PATH
+      - name: Install protoc-gen-grpc-java
+        uses: JacobSMoller/setup-protoc-grpc-java
 
       - name: Generate Java code
         run: |
           mkdir -p build/java
-          protoc -I=./contracts/proto \
-            --java_out=build/java \
-            --grpc-java_out=build/java \
-            $(find ./contracts/proto -type f -name '*.proto')
+          protoc -I=./contracts/proto --java_out=build/java --grpc-java_out=build/java $(find ./contracts/proto -type f -name '*.proto')
 
       - name: Upload generated Java client
         uses: actions/upload-artifact@v4
