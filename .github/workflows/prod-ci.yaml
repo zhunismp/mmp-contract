@@ -137,7 +137,7 @@ jobs:
 
       - name: Publish to GitHub Packages
         run: |
-          mvn clean install
+          mvn clean install compile
           mvn deploy -DskipTests -e -X
 
         
