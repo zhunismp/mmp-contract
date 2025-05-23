@@ -9,43 +9,43 @@ permissions:
   contents: write
 
 jobs:
-  generate-go-client:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+  # generate-go-client:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Checkout code
+  #       uses: actions/checkout@v4
 
-      - name: Install Protoc
-        uses: arduino/setup-protoc@v3
+  #     - name: Install Protoc
+  #       uses: arduino/setup-protoc@v3
 
-      - name: Installing protoc-gen-go
-        run: |
-          go install github.com/golang/protobuf/protoc-gen-go@latest
-          go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest
-          echo "$HOME/go/bin" >> $GITHUB_PATH
+  #     - name: Installing protoc-gen-go
+  #       run: |
+  #         go install github.com/golang/protobuf/protoc-gen-go@latest
+  #         go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest
+  #         echo "$HOME/go/bin" >> $GITHUB_PATH
 
-      - name: Generating protos
-        run: |
-          mkdir -p build/go
-          protoc -I=./contracts/proto --go_out=build/go $(find ./contracts/proto -type f -name '*.proto')
-      - name: Upload generated Go client
-        uses: actions/upload-artifact@v4
-        with:
-          name: go-client
-          path: build/go
+  #     - name: Generating protos
+  #       run: |
+  #         mkdir -p build/go
+  #         protoc -I=./contracts/proto --go_out=build/go $(find ./contracts/proto -type f -name '*.proto')
+  #     - name: Upload generated Go client
+  #       uses: actions/upload-artifact@v4
+  #       with:
+  #         name: go-client
+  #         path: build/go
 
-  publish-go-client:
-    runs-on: ubuntu-latest
-    needs: generate-go-client
-    steps:
-      - name: Download generated Go client
-        uses: actions/download-artifact@v4
-        with:
-          name: go-client
-      - name: Release go pkg
-        uses: go-semantic-release/action@v1
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+  # publish-go-client:
+  #   runs-on: ubuntu-latest
+  #   needs: generate-go-client
+  #   steps:
+  #     - name: Download generated Go client
+  #       uses: actions/download-artifact@v4
+  #       with:
+  #         name: go-client
+  #     - name: Release go pkg
+  #       uses: go-semantic-release/action@v1
+  #       with:
+  #         github-token: ${{ secrets.GITHUB_TOKEN }}
 
   generate-java-client:
     runs-on: ubuntu-latest
@@ -95,11 +95,11 @@ jobs:
           server-password: ${{ secrets.GITHUB_TOKEN }}
       - name: Verify /build/java directory
         run: |
-          ls -la build/java
+          ls -la
 
       - name: Create pom.xml
         run: |
-          cat > build/java/pom.xml <<EOF
+          cat > pom.xml <<EOF
           <project xmlns="http://maven.apache.org/POM/4.0.0"
                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
