@@ -100,6 +100,9 @@ jobs:
           mkdir -p src/main/java
           mv com src/main/java
 
+      - name: Tree
+        run: tree .
+
       - name: Create pom.xml
         working-directory: src/main/java/com/zhunismp/orderpb
         run: |
