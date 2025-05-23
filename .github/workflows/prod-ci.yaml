@@ -87,7 +87,7 @@ jobs:
           name: java-client
 
       - name: Setup Java for publishing
-        uses: actions/setup-java@v2
+        uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
           java-version: '17'
@@ -121,6 +121,14 @@ jobs:
                 <url>https://maven.pkg.github.com/zhunismp/mmp-contract</url>
               </repository>
             </distributionManagement>
+
+            <configuration>
+              <!-- Prevent gpg from using pinentry programs -->
+              <gpgArguments>
+                <arg>--pinentry-mode</arg>
+                <arg>loopback</arg>
+              </gpgArguments>
+            </configuration>
           </project>
           EOF
 
