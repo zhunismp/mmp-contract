@@ -123,4 +123,7 @@ jobs:
         working-directory: com/zhunismp/orderpb
         run: |
           mvn deploy -DskipTests
+        env:
+          GITHUB_TOKEN: ${{ secrets.MY_TOKEN }}
+
         
