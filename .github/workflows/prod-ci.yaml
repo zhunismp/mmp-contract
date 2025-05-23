@@ -25,3 +25,8 @@ jobs:
         run: |
           mkdir -p build/go
           protoc -I=./contracts/proto --go_out=build/go $(find ./contracts/proto -type f -name '*.proto')
+      - name: Upload generated Go client
+        uses: actions/upload-artifact@v4
+        with:
+          name: go-client
+          path: build/go
