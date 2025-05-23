@@ -23,5 +23,5 @@ jobs:
 
       - name: Generating protos
         run: |
-          mkdir -p /build/go
-          protoc -I=./contracts/proto --go_out=/build/go $(find ./contracts/proto -type f -name '*.proto')
+          mkdir -p build/go
+          protoc -I=./contracts/proto --go_out=build/go $(find ./contracts/proto -type f -name '*.proto')
