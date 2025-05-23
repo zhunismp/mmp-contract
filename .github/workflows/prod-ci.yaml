@@ -63,7 +63,7 @@ jobs:
           java-version: '17'
 
       - name: Install protoc-gen-grpc-java
-        uses: JacobSMoller/setup-protoc-grpc-java@latest
+        uses: JacobSMoller/setup-protoc-grpc-java@v0.0.1
 
       - name: Generate Java code
         run: |
