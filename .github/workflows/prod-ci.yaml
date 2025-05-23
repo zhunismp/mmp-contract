@@ -124,6 +124,6 @@ jobs:
         run: |
           mvn deploy -DskipTests
         env:
-          GITHUB_TOKEN: ${{ secrets.PUBLISHER_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
         
