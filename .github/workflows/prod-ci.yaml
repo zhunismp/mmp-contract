@@ -111,9 +111,7 @@ jobs:
           server-id: github
           server-username: ${{ github.actor }}
           server-password: ${{ secrets.PUBLISHER_TOKEN }}
-        env:
-          server-username: ${{ github.actor }}
-          server-password: ${{ secrets.PUBLISHER_TOKEN }}
+          overwrite-settings: false
 
       - name: Create directory structure
         run: |
@@ -152,16 +150,8 @@ jobs:
           </project>
           EOF
 
-      - name: Tree
-        run: tree .
-      
-      - name: Cat
-        run: cat ~/.m2/settings.xml
-
       - name: Publish to GitHub Packages
         run: |
           mvn clean install
           mvn deploy -DskipTests -e -X
-        env:
-          GITHUB_TOKEN: ${{ secrets.TEST_TOKEN }}
         
