@@ -25,4 +25,6 @@ jobs:
         uses: bufbuild/buf-push-action@v1
         with:
           buf_token: ${{ secrets.BUF_TOKEN }}
+          input: 'contracts/proto'
+
         

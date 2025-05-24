@@ -1,5 +1,0 @@
-version: v2
-
-modules:
-  - path: contracts/proto
-    name: buf.build/zhunismp/mmp-contract
