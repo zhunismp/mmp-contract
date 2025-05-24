@@ -111,7 +111,7 @@ jobs:
           server-id: github
           server-username: ${{ github.actor }}
           server-password: abc
-          override-settings: false
+          overwrite-settings: false
 
       - name: Create directory structure
         run: |
