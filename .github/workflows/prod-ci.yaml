@@ -113,11 +113,6 @@ jobs:
           server-password: ${{ secrets.PUBLISHER_TOKEN }}
           overwrite-settings: false
 
-      - name: Create directory structure
-        run: |
-          mkdir -p src/main/java
-          mv com src/main/java
-
       - name: Create pom.xml
         run: |
           cat > pom.xml <<EOF
@@ -129,7 +124,7 @@ jobs:
 
             <groupId>com.zhunismp.mmp-contract</groupId>
             <artifactId>proto-client</artifactId>
-            <version>0.1.3</version>
+            <version>0.1.4</version>
             <packaging>jar</packaging>
 
             <distributionManagement>
