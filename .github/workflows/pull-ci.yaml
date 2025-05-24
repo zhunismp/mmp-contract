@@ -1,0 +1,16 @@
+on:
+  pull_request:
+    branches:
+      - master
+
+permissions:
+  pull-requests: write
+
+jobs:
+  check-backward-compatibility:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      
