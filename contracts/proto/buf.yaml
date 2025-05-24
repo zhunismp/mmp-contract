@@ -3,3 +3,7 @@ version: v2
 modules:
   - path: .
     name: buf.build/zhunismp/mmp-contract
+
+lint:
+  use:
+    - STANDARD

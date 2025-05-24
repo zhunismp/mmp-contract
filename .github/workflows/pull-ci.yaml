@@ -15,6 +15,11 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Lint proto files 
+        uses: bufbuild/buf-lint-action@v1
+        with:
+          input: 'contracts/proto'
+
       - name: Check backward compatibility
         uses: bufbuild/buf-breaking-action@v1
         with:
