@@ -19,5 +19,6 @@ jobs:
         uses: bufbuild/buf-breaking-action@v1
         with:
           against: 'https://github.com/zhunismp/mmp-contract.git#branch=master,ref=HEAD~1'
+          input: 'contracts/proto'
 
       
