@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package order;
+package order.v1;
 
 option go_package = "github.com/zhunismp/orderpb;orderpb";
 option java_multiple_files = true;
