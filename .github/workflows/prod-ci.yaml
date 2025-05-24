@@ -134,6 +134,9 @@ jobs:
 
       - name: Tree
         run: tree .
+      
+      - name: Cat
+        run: cat ~/.m2/settings.xml
 
       - name: Publish to GitHub Packages
         run: |
