@@ -85,6 +85,23 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: java-client
+      
+      - name: Create settings.xml
+        run: |
+          mkdir -p ~/.m2
+          cat > ~/.m2/settings.xml <<EOF
+          <settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 https://maven.apache.org/xsd/settings-1.0.0.xsd">
+            <servers>
+              <server>
+                <id>github</id>
+                <username>${{ github.actor }}</username>
+                <password>${{ secrets.PUBLISHER_TOKEN }}</password>
+              </server>
+            </servers>
+          </settings>
+          EOF
 
       - name: Setup Java for publishing
         uses: actions/setup-java@v4
@@ -94,6 +111,7 @@ jobs:
           server-id: github
           server-username: ${{ github.actor }}
           server-password: abc
+          override-settings: false
 
       - name: Create directory structure
         run: |
