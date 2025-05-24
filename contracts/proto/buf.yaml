@@ -1,7 +1,7 @@
 version: v2
 
 modules:
-  - path: .
+  - path: order
     name: buf.build/zhunismp/mmp-contract
 
 lint:
