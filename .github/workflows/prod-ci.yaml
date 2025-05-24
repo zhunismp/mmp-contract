@@ -110,8 +110,10 @@ jobs:
           java-version: '17'
           server-id: github
           server-username: ${{ github.actor }}
-          server-password: abc
-          overwrite-settings: false
+          server-password: ${{ secrets.PUBLISHER_TOKEN }}
+        env:
+          server-username: ${{ github.actor }}
+          server-password: ${{ secrets.PUBLISHER_TOKEN }}
 
       - name: Create directory structure
         run: |
