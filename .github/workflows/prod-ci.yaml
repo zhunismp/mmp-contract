@@ -10,148 +10,19 @@ permissions:
   packages: write
 
 jobs:
-  # generate-go-client:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Checkout code
-  #       uses: actions/checkout@v4
-
-  #     - name: Install Protoc
-  #       uses: arduino/setup-protoc@v3
-
-  #     - name: Installing protoc-gen-go
-  #       run: |
-  #         go install github.com/golang/protobuf/protoc-gen-go@latest
-  #         go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest
-  #         echo "$HOME/go/bin" >> $GITHUB_PATH
-
-  #     - name: Generating protos
-  #       run: |
-  #         mkdir -p build/go
-  #         protoc -I=./contracts/proto --go_out=build/go $(find ./contracts/proto -type f -name '*.proto')
-  #     - name: Upload generated Go client
-  #       uses: actions/upload-artifact@v4
-  #       with:
-  #         name: go-client
-  #         path: build/go
-
-  # publish-go-client:
-  #   runs-on: ubuntu-latest
-  #   needs: generate-go-client
-  #   steps:
-  #     - name: Download generated Go client
-  #       uses: actions/download-artifact@v4
-  #       with:
-  #         name: go-client
-  #     - name: Release go pkg
-  #       uses: go-semantic-release/action@v1
-  #       with:
-  #         github-token: ${{ secrets.GITHUB_TOKEN }}
-
-  generate-java-client:
+  publish-buf-registry:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Install Protoc
-        uses: arduino/setup-protoc@v3
-
-      - name: Setup Java (JDK 17)
-        uses: actions/setup-java@v4
+      - name: Setup buf cli
+        uses: bufbuild/buf-setup-action@v1.50.0
         with:
-          distribution: 'temurin'
-          java-version: '17'
+          github_token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Install protoc-gen-grpc-java
-        uses: JacobSMoller/setup-protoc-grpc-java@v0.0.1
-
-      - name: Generate Java code
-        run: |
-          mkdir -p build/java
-          protoc -I=./contracts/proto --java_out=build/java --grpc-java_out=build/java $(find ./contracts/proto -type f -name '*.proto')
-
-      - name: Upload generated Java client
-        uses: actions/upload-artifact@v4
+      - name: Publish buf registry
+        uses: bufbuild/buf-push-action@v1
         with:
-          name: java-client
-          path: build/java
-
-  publish-java-client:
-    runs-on: ubuntu-latest
-    needs: generate-java-client
-    steps:
-      - name: Download generated Java client
-        uses: actions/download-artifact@v4
-        with:
-          name: java-client
-      
-      - name: Create settings.xml
-        run: |
-          mkdir -p ~/.m2
-          cat > ~/.m2/settings.xml <<EOF
-          <settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 https://maven.apache.org/xsd/settings-1.0.0.xsd">
-            <servers>
-              <server>
-                <id>github</id>
-                <username>${{ github.actor }}</username>
-                <password>${{ secrets.PUBLISHER_TOKEN }}</password>
-              </server>
-            </servers>
-          </settings>
-          EOF
-
-      - name: Setup Java for publishing
-        uses: actions/setup-java@v4
-        with:
-          distribution: 'temurin'
-          java-version: '17'
-          server-id: github
-          server-username: ${{ github.actor }}
-          server-password: ${{ secrets.PUBLISHER_TOKEN }}
-          overwrite-settings: false
-
-      - name: Create directory structure
-        run: |
-          mkdir -p src/main/java
-          mv com src/main/java
-
-      - name: Create pom.xml
-        run: |
-          cat > pom.xml <<EOF
-          <project xmlns="http://maven.apache.org/POM/4.0.0"
-          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
-          http://maven.apache.org/xsd/maven-4.0.0.xsd">
-            <modelVersion>4.0.0</modelVersion>
-
-            <groupId>com.zhunismp.mmp-contract</groupId>
-            <artifactId>proto-client</artifactId>
-            <version>0.1.5</version>
-            <packaging>jar</packaging>
-
-            <distributionManagement>
-              <repository>
-                <id>github</id>
-                <name>GitHub Packages</name>
-                <url>https://maven.pkg.github.com/zhunismp/mmp-contract</url>
-              </repository>
-            </distributionManagement>
-
-            <dependencies>
-              <dependency>
-              <groupId>com.google.protobuf</groupId>
-              <artifactId>protobuf-java</artifactId>
-              <version>4.31.0</version>
-              </dependency>
-            </dependencies>
-          </project>
-          EOF
-
-      - name: Publish to GitHub Packages
-        run: |
-          mvn clean install
-          mvn deploy -DskipTests
+          buf_token: ${{ secrets.BUF_TOKEN }}
         
