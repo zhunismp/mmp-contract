@@ -25,6 +25,5 @@ jobs:
       - name: Publish buf registry
         uses: bufbuild/buf-push-action@v1
         with:
-          input: contracts/proto
           buf_token: ${{ secrets.BUF_TOKEN }}
         
