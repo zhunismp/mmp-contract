@@ -18,4 +18,5 @@ message OrderItem {
     string product_id = 1;
     string product_name = 2;
     int32 quantity = 3;
+    double Unit_price = 4;
 }
